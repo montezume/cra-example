@@ -1,9 +1,13 @@
 import * as types from '../constants/types';
-import { get, post, put } from 'axios';
+import axios from 'axios';
 
 const addUser = () => { return { type: types.ADD_USER }};
 const addUserSuccess = data => { return { type: types.ADD_USER_SUCCESS, data }};
 const addUserError = error => { return { type: types.ADD_USER_ERROR, error }};
+
+const deleteUser = () => { return { type: types.DELETE_USER } };
+const deleteUserSuccess = data => { return { type: types.DELETE_USER_SUCCESS, payload: data } };
+const deleteUserError = error => { return { type: types.DELETE_USER_ERROR, error } };
 
 const editUser = () => { return { type: types.MODIFY_USER }};
 const editUserSuccess = data => { return { type: types.MODIFY_USER_SUCCESS, data }};
@@ -13,25 +17,12 @@ const fetchUser = () => { return { type: types.FETCH_USER } };
 const fetchUserSuccess = data => { return { type: types.FETCH_USER_SUCCESS, payload: data } };
 const fetchUserError = error => { return { type: types.FETCH_USER_ERROR, error } };
 
-export const getUser = id => {
-  return function(dispatch) {
-    dispatch(fetchUser());
-    get(`/users/${id}`)
-      .then(success => {
-        dispatch(fetchUserSuccess(success.data));
-      }, error => {
-        console.log('error', error);
-        dispatch(fetchUserError(error));
-      });
-  }
-};
-
 export const createUser = user => {
   return function(dispatch) {
     // could add a Promise polyfill for IE
     return new Promise((resolve, reject) => {
       dispatch(addUser());
-      post('/users', user)
+      axios.post('/users', user)
         .then(success => {
           dispatch(addUserSuccess(success.data));
           resolve(success.data);
@@ -44,12 +35,44 @@ export const createUser = user => {
   }
 };
 
+export const removeUser = id => {
+  return function(dispatch) {
+    // could add a Promise polyfill for IE
+    return new Promise((resolve, reject) => {
+      dispatch(deleteUser());
+      axios.delete(`/users/${id}`)
+        .then(success => {
+          dispatch(deleteUserSuccess(success.data));
+          resolve(success.data);
+        }, error => {
+          console.log('error', error);
+          dispatch(deleteUserError(error));
+          reject(error);
+        });
+    })
+  }
+};
+
+
+export const getUser = id => {
+  return function(dispatch) {
+    dispatch(fetchUser());
+    axios.get(`/users/${id}`)
+      .then(success => {
+        dispatch(fetchUserSuccess(success.data));
+      }, error => {
+        console.log('error', error);
+        dispatch(fetchUserError(error));
+      });
+  }
+};
+
 export const modifyUser = user => {
   return function(dispatch) {
     // could add a Promise polyfill for IE
     return new Promise((resolve, reject) => {
       dispatch(editUser());
-      put(`/users/${user.id}`, user)
+      axios.put(`/users/${user.id}`, user)
         .then(success => {
           dispatch(editUserSuccess(success.data));
           resolve(success.data);

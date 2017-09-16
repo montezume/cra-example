@@ -6,6 +6,31 @@ export default function users(state = {
   error: false,
 }, action) {
   switch (action.type) {
+
+    case types.ADD_USER_SUCCESS: {
+      // if we have user data, add it
+      return {
+        ...state,
+        data: state.data && state.data.concat([action.payload])
+      }
+    }
+
+    case types.DELETE_USER_SUCCESS: {
+      // if we have user data, remove this user
+      return {
+        ...state,
+        data: state.data && state.data.filter((user) => user.id !== action.payload.id)
+      }
+    }
+
+    case types.MODIFY_USER_SUCCESS: {
+      // if we have user data, update it.
+      return {
+        ...state,
+        data: state.data && state.data.map((user) => user.id !== action.payload.id ? user : action.payload)
+      }
+    }
+
     case types.FETCH_USERS: {
       return {
         ...state,

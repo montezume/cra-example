@@ -16,12 +16,16 @@ class UserList extends Component {
   }
 
   componentDidMount() {
-    const { getUsers } = this.props;
-    getUsers();
+    const { users, getUsers } = this.props;
+
+    // idealistic caching
+
+    if (!users) {
+      getUsers();
+    }
   }
 
   handleDelete(id) {
-    console.log('delete it!');
     const { removeUser } = this.props;
     removeUser(id);
   }

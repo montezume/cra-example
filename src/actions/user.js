@@ -2,7 +2,7 @@ import * as types from '../constants/types';
 import axios from 'axios';
 
 const addUser = () => { return { type: types.ADD_USER }};
-const addUserSuccess = data => { return { type: types.ADD_USER_SUCCESS, data }};
+const addUserSuccess = data => { return { type: types.ADD_USER_SUCCESS, payload: data }};
 const addUserError = error => { return { type: types.ADD_USER_ERROR, error }};
 
 const deleteUser = () => { return { type: types.DELETE_USER } };
@@ -10,8 +10,8 @@ const deleteUserSuccess = data => { return { type: types.DELETE_USER_SUCCESS, pa
 const deleteUserError = error => { return { type: types.DELETE_USER_ERROR, error } };
 
 const editUser = () => { return { type: types.MODIFY_USER }};
-const editUserSuccess = data => { return { type: types.MODIFY_USER_SUCCESS, data }};
-const editUserError = data => { return { type: types.MODIFY_USER_ERROR, data }};
+const editUserSuccess = data => { return { type: types.MODIFY_USER_SUCCESS, payload: data }};
+const editUserError = error => { return { type: types.MODIFY_USER_ERROR, error }};
 
 const fetchUser = () => { return { type: types.FETCH_USER } };
 const fetchUserSuccess = data => { return { type: types.FETCH_USER_SUCCESS, payload: data } };
@@ -42,7 +42,7 @@ export const removeUser = id => {
       dispatch(deleteUser());
       axios.delete(`/users/${id}`)
         .then(success => {
-          dispatch(deleteUserSuccess(success.data));
+          dispatch(deleteUserSuccess({ id }));
           resolve(success.data);
         }, error => {
           console.log('error', error);

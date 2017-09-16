@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 import ListItem from './ListItem';
 
-const UserList = ({users, handleDelete}) => (
+const UserList = ({users, handleDelete, handleFilter}) => (
   <div>
-
     <div>
       <Link to="/add">
         Add new user
       </Link>
     </div>
+
     Users List
 
     { users && users.map((user) => {

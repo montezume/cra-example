@@ -1,6 +1,7 @@
 import { routerReducer } from 'react-router-redux'
 import { combineReducers } from 'redux';
 
+import filter from './filter';
 import user from './user';
 import users from './users';
 
@@ -8,6 +9,7 @@ import users from './users';
 // router state
 
 const rootReducer = combineReducers({
+  filter,
   routerReducer,
   user,
   users

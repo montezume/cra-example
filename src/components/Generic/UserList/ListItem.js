@@ -1,8 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 
-const ListItem = ({ user: { id, name, job_title }, handleDelete}) => (
-  <div>
+
+const GenericListItem = ({ user: { id, name, job_title }, handleDelete, history}) => (
+  <ListItem button onClick={() => { history.push(`/users/${id}`) }}>
+    <ListItemText primary={name} />
+  </ListItem>
+);
+
+export default withRouter(GenericListItem);
+
+/*  <div>
     { name }
     <Link to={`/users/${id}`}>
       View
@@ -14,6 +23,4 @@ const ListItem = ({ user: { id, name, job_title }, handleDelete}) => (
       Delete
     </button>
   </div>
-);
-
-export default ListItem;
+*/

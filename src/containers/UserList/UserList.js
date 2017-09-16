@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { updateFilter } from '../../actions/filter';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import Icon from 'material-ui/Icon';
+
+
+import { clearFilter, updateFilter } from '../../actions/filter';
 import { removeUser } from '../../actions/user';
 import { getUsers } from '../../actions/users';
 
@@ -14,18 +21,35 @@ class UserList extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      searchOpen: false
+    };
+
     this.handleNameFilter = this.handleNameFilter.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.toggleSearch = this.toggleSearch.bind(this);
   }
 
   componentDidMount() {
     const { users, getUsers } = this.props;
 
-    // idealistic caching
-
     if (!users) {
       getUsers();
     }
+  }
+
+  toggleSearch() {
+    const { clearFilter } = this.props;
+
+    if (this.state.searchOpen) {
+      clearFilter();
+    }
+
+    this.setState({
+      ...this.state,
+      searchOpen: !this.state.searchOpen
+    });
   }
 
   handleDelete(id) {
@@ -42,6 +66,7 @@ class UserList extends Component {
 
   render() {
     const { error, isFetching, users } = this.props;
+    const { searchOpen } = this.state;
 
     if (isFetching) {
       return (
@@ -58,7 +83,28 @@ class UserList extends Component {
     if (users) {
       return (
         <div>
-          <NameFilter onFilter={this.handleNameFilter} />
+          <AppBar position="static">
+            <Toolbar>
+              <Typography style={{ flex: '1' }} type="title" color="inherit">
+                { !searchOpen ? (
+                  <span>
+                    Contacts
+                  </span>
+                ) : (
+                  <NameFilter onFilter={this.handleNameFilter} />
+                  )
+                }
+              </Typography>
+              <IconButton onClick={this.toggleSearch}>
+                { !searchOpen ? (
+                  <Icon color="contrast">search</Icon>
+                  ) : (
+                  <Icon color="contrast">close</Icon>
+                  )
+                }
+              </IconButton>
+            </Toolbar>
+          </AppBar>
           <GenericUserList handleDelete={this.handleDelete} users={users} />
         </div>
       );
@@ -71,14 +117,14 @@ class UserList extends Component {
 const mapStateToProps = state => {
   const { filter: { data: { name }}} = state;
   return {
-    users: state.users.data && state.users.data.filter(user => user.name.startsWith(name)),
+    users: state.users.data && state.users.data.filter(user => user.name.toLowerCase().startsWith(name.toLowerCase())),
     isFetching: state.users.isFetching,
     error: state.users.error
   }
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ getUsers, removeUser, updateFilter }, dispatch);
+  return bindActionCreators({ getUsers, removeUser, clearFilter, updateFilter }, dispatch);
 };
 
 export default connect(

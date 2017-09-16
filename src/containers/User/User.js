@@ -10,8 +10,14 @@ import { User as GenericUser } from '../../components/Generic/User';
 class User extends Component {
 
   componentDidMount() {
-    const { getUser, match: { params } } = this.props;
-    getUser(params.id);
+    const { getUser, user, match: { params } } = this.props;
+
+    if (!user || parseInt(user.id, 10) !== parseInt(params.id, 10)) {
+      console.log('here:?');
+      console.log('what');
+      getUser(params.id);
+    }
+    console.log('user', user);
   }
 
   render() {

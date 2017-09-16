@@ -1,38 +1,43 @@
 import React, { Component } from 'react'
-import { TextInput } from '../../components/Input';
+import TextField from 'material-ui/TextField';
+import Input from 'material-ui/Input';
 
 class NameFilter extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       name: '',
-      isSubmitting: false
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const { name } = this.state;
-    const { onFilter } = this.props;
-    onFilter(name);
   }
 
   handleChange(event) {
-    this.setState({name: event.target.value});
+    const { onFilter } = this.props;
+    const name = event.target.value;
+
+    this.setState({ name });
+
+    onFilter(event.target.value);
   }
 
   render() {
-    const { isSubmitting, name } = this.state;
+    const { name } = this.state;
     return (
       <div>
-        Filter Component
+        <form noValidate autoComplete="off">
+          <Input
+            id="name"
+            label="Name"
+            value={name}
+            color="white"
+            style={{color: 'white'}}
+            fullWidth
+            onChange={this.handleChange}
+            margin="none"
+          />
 
-        <form onSubmit={this.handleSubmit}>
-          <TextInput name="name" label="Filter by name" value={name} onChange={this.handleChange} />
-          <input type="submit" value="Submit" disabled={isSubmitting} />
         </form>
       </div>
     )
@@ -40,3 +45,5 @@ class NameFilter extends Component {
 }
 
 export default NameFilter;
+
+    // <input name="name" label="Filter by name" value={name} onChange={this.handleChange} />

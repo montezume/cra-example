@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { TextInput } from '../../Input';
 
 class UserForm extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class UserForm extends Component {
 
     const { submit } = this.props;
     const user = {
+      ...this.props.user,
       name: this.state.name,
       phone: this.state.phone
     };
@@ -42,10 +44,7 @@ class UserForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         Form is here!
-        <label>
-          Name
-          <input name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
-        </label>
+        <TextInput label="Name" name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
         <input type="submit" value="Submit" disabled={isSubmitting} />
       </form>
     )

@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom';
 
 const ListItem = ({ user: { id, name, job_title }}) => (
   <div>
+    { name }
     <Link to={`/users/${id}`}>
-      { name }
+      View
+    </Link>
+    <Link to={`/edit/${id}`}>
+      Edit
     </Link>
   </div>
 );

@@ -29,9 +29,13 @@ class UserList extends Component {
       )
     }
 
-    return (
-      <GenericUserList users={users} />
-    );
+    if (users) {
+      return (
+        <GenericUserList users={users} />
+      );
+    }
+
+    return null;
   }
 }
 

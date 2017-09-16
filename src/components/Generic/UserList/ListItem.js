@@ -1,13 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const ListItem = ({ user: { name, job_title }}) => (
+const ListItem = ({ user: { id, name, job_title }}) => (
   <div>
-    <p>
+    <Link to={`/${id}`}>
       { name }
-    </p>
-    <p>
-      { job_title }
-    </p>
+    </Link>
   </div>
 );
 

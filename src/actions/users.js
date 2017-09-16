@@ -8,7 +8,7 @@ const fetchUsersError = error => { return { type: types.FETCH_USERS_ERROR, error
 export const getUsers = () => {
   return function(dispatch) {
     dispatch(fetchUsers());
-    get('./users')
+    get('/users')
       .then(success => {
         console.log('success', success);
         dispatch(fetchUsersSuccess(success.data));

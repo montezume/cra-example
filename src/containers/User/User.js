@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { getUser } from '../../actions/user';
 
 import { ErrorComponent, Loading } from '../../components/Status';
-import { default as GenericUser } from '../../components/Generic/User';
+import { User as GenericUser } from '../../components/Generic/User';
 
 class User extends Component {
 

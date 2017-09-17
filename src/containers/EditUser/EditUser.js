@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { getUser, modifyUser } from '../../actions/user';
-import { UserForm } from '../../components/Generic/User';
+import { AddUserShell, UserForm } from '../../components/Generic/User';
 import { ErrorComponent, Loading } from '../../components/Status';
 
 class EditUser extends Component {
@@ -57,28 +57,30 @@ class EditUser extends Component {
 
     if (isFetching) {
       return (
-        <Loading message="Loading user" />
+        <AddUserShell title="Loading...">
+          <Loading />
+        </AddUserShell>
       );
     }
 
     if (error) {
       return (
-        <ErrorComponent message="Error loading user" />
+        <AddUserShell title="Error">
+          <ErrorComponent message="Error loading user" />
+        </AddUserShell>
       );
     }
 
     if (user) {
       return (
-        <div>
-          Edit User
-
+        <AddUserShell title={user.name}>
           <UserForm
             error={submitError}
             user={user}
             isSubmitting={isSubmitting}
             submit={this.submit}
             />
-        </div>
+        </AddUserShell>
       );
     }
 

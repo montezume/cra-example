@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { createUser } from '../../actions/user';
-import { UserForm } from '../../components/Generic/User';
-// import { ErrorComponent, Loading } from '../../components/Status';
+import { UserForm, AddUserShell } from '../../components/Generic/User';
+import { Loading } from '../../components/Status';
 
 class AddUser extends Component {
 
@@ -18,7 +18,7 @@ class AddUser extends Component {
   }
 
   submit(user) {
-    const { createUser, history } = this.props
+    const { createUser, history } = this.props;
 
     this.setState({
       ...this.state,
@@ -47,15 +47,22 @@ class AddUser extends Component {
   render() {
     const { error, isSubmitting } = this.state;
 
+    if (isSubmitting) {
+      return (
+        <AddUserShell title="Saving...">
+          <Loading />
+        </AddUserShell>
+      )
+    }
+
     return (
-      <div>
-        Add User
+      <AddUserShell title="Add user">
         <UserForm
           error={error}
           isSubmitting={isSubmitting}
           submit={this.submit}
           />
-      </div>
+      </AddUserShell>
     )
   }
 }

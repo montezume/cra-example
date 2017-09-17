@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { TextInput } from '../../Input';
+import styled from 'styled-components';
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+
+import { ImageGalleryPicker } from '../../Input';
+
+const StyledButtonContainer = styled.div`
+  margin-top: 32px;
+`
 
 class UserForm extends Component {
   constructor(props) {
@@ -8,12 +16,27 @@ class UserForm extends Component {
     const { user } = props;
 
     this.state = {
-      name: (user && user.name) || '',
-      phone: (user && user.phone) || ''
+      user: {
+        name: (user && user.name) || '',
+        job_title: (user && user.job_title) || '',
+        phone: (user && user.phone) || '',
+        email: (user && user.email) || '',
+        picture: (user && user.picture) || ''
+      }
     };
 
+    this.handleImageChange = this.handleImageChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleImageChange(picture) {
+    this.setState({
+      user: {
+        ...this.state.user,
+        picture
+      }
+    })
   }
 
   handleInputChange(event) {
@@ -22,7 +45,10 @@ class UserForm extends Component {
     const name = target.name;
 
     this.setState({
-      [name]: value
+      user: {
+        ...this.state.user,
+        [name]: value
+      }
     });
   }
 
@@ -32,8 +58,7 @@ class UserForm extends Component {
     const { submit } = this.props;
     const user = {
       ...this.props.user,
-      name: this.state.name,
-      phone: this.state.phone
+      ...this.state.user
     };
 
     submit(user);
@@ -41,11 +66,69 @@ class UserForm extends Component {
 
   render() {
     const { isSubmitting } = this.props;
+    const { user } = this.state;
+
     return (
       <form onSubmit={this.handleSubmit}>
-        Form is here!
-        <TextInput label="Name" name="name" type="text" value={this.state.name} onChange={this.handleInputChange} />
-        <input type="submit" value="Submit" disabled={isSubmitting} />
+        <TextField
+          id="name"
+          label="Name"
+          disabled={isSubmitting}
+          name="name"
+          fullWidth
+          value={user.name}
+          onChange={this.handleInputChange}
+          required
+          margin="normal"
+        />
+
+        <TextField
+          id="email"
+          label="Email"
+          disabled={isSubmitting}
+          name="email"
+          fullWidth
+          value={user.email}
+          type="email"
+          onChange={this.handleInputChange}
+          required
+          margin="normal"
+        />
+
+        <TextField
+          id="phone"
+          label="Phone"
+          disabled={isSubmitting}
+          name="phone"
+          fullWidth
+          type="tel"
+          value={user.phone}
+          onChange={this.handleInputChange}
+          required
+          margin="normal"
+        />
+
+        <TextField
+          id="job_title"
+          label="Job title"
+          disabled={isSubmitting}
+          name="job_title"
+          fullWidth
+          value={user.job_title}
+          onChange={this.handleInputChange}
+          margin="normal"
+        />
+
+      <ImageGalleryPicker
+        selectedImage={user.picture}
+        onSelect={this.handleImageChange}
+      />
+
+        <StyledButtonContainer>
+          <Button color="accent" raised type="submit" disabled={isSubmitting}>
+            Save
+          </Button>
+        </StyledButtonContainer>
       </form>
     )
   }

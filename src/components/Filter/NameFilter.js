@@ -7,7 +7,7 @@ class NameFilter extends Component {
     super(props);
 
     this.state = {
-      name: '',
+      name: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -18,7 +18,6 @@ class NameFilter extends Component {
     const name = event.target.value;
 
     this.setState({ name });
-
     onFilter(event.target.value);
   }
 
@@ -31,8 +30,9 @@ class NameFilter extends Component {
             id="name"
             label="Name"
             value={name}
-            color="white"
+            className="test"
             style={{color: 'white'}}
+            disableUnderline
             fullWidth
             onChange={this.handleChange}
             margin="none"
@@ -45,5 +45,3 @@ class NameFilter extends Component {
 }
 
 export default NameFilter;
-
-    // <input name="name" label="Filter by name" value={name} onChange={this.handleChange} />

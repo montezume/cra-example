@@ -1,5 +1,11 @@
 import * as types from '../constants/types';
 
+const sortAlphabetically = (propertyA, propertyB) => {
+  const textA = propertyA.name.toUpperCase();
+  const textB = propertyB.name.toUpperCase();
+  return (textA < textB) ? - 1 : (textA > textB) ? 1 : 0;
+}
+
 export default function users(state = {
   data: null,
   isFetching: false,
@@ -11,7 +17,7 @@ export default function users(state = {
       // if we have user data, add it
       return {
         ...state,
-        data: state.data && state.data.concat([action.payload])
+        data: state.data && state.data.concat([action.payload]).sort(sortAlphabetically)
       }
     }
 
@@ -19,7 +25,7 @@ export default function users(state = {
       // if we have user data, remove this user
       return {
         ...state,
-        data: state.data && state.data.filter((user) => user.id !== action.payload.id)
+        data: state.data && state.data.filter((user) => user.id !== action.payload.id).sort(sortAlphabetically)
       }
     }
 
@@ -27,7 +33,7 @@ export default function users(state = {
       // if we have user data, update it.
       return {
         ...state,
-        data: state.data && state.data.map((user) => user.id !== action.payload.id ? user : action.payload)
+        data: state.data && state.data.map((user) => user.id !== action.payload.id ? user : action.payload).sort(sortAlphabetically)
       }
     }
 
@@ -42,7 +48,7 @@ export default function users(state = {
     case types.FETCH_USERS_SUCCESS:
       return {
         ...state,
-        data: action.payload,
+        data: action.payload.sort(sortAlphabetically),
         error: false,
         isFetching: false
       };

@@ -29,6 +29,15 @@ export default function user(state = {
         error: true
       };
 
+    case types.MODIFY_USER_SUCCESS: {
+      // if we have user data, update it.
+      return {
+        ...state,
+        data: state.data && state.data.id === action.payload.id ? action.payload : null
+      }
+    }
+
+
     default:
       return state;
   }

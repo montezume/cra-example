@@ -10,7 +10,6 @@ import Icon from 'material-ui/Icon';
 
 
 import { clearFilter, updateFilter } from '../../actions/filter';
-import { removeUser } from '../../actions/user';
 import { getUsers } from '../../actions/users';
 
 import { NameFilter } from '../../components/Filter';
@@ -27,7 +26,6 @@ class UserList extends Component {
     };
 
     this.handleNameFilter = this.handleNameFilter.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
     this.toggleSearch = this.toggleSearch.bind(this);
   }
 
@@ -50,11 +48,6 @@ class UserList extends Component {
       ...this.state,
       searchOpen: !this.state.searchOpen
     });
-  }
-
-  handleDelete(id) {
-    const { removeUser } = this.props;
-    removeUser(id);
   }
 
   handleNameFilter(name) {
@@ -105,7 +98,7 @@ class UserList extends Component {
               </IconButton>
             </Toolbar>
           </AppBar>
-          <GenericUserList handleDelete={this.handleDelete} users={users} />
+          <GenericUserList users={users} />
         </div>
       );
     }
@@ -124,7 +117,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ getUsers, removeUser, clearFilter, updateFilter }, dispatch);
+  return bindActionCreators({ getUsers, clearFilter, updateFilter }, dispatch);
 };
 
 export default connect(

@@ -2,22 +2,34 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getUser } from '../../actions/user';
+import { getUser, removeUser } from '../../actions/user';
 
 import { ErrorComponent, Loading } from '../../components/Status';
 import { User as GenericUser } from '../../components/Generic/User';
 
 class User extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      dialogOpen: false
+    };
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
   componentDidMount() {
     const { getUser, user, match: { params } } = this.props;
 
     if (!user || parseInt(user.id, 10) !== parseInt(params.id, 10)) {
-      console.log('here:?');
-      console.log('what');
       getUser(params.id);
     }
-    console.log('user', user);
+  }
+
+  handleDelete(id) {
+    const { removeUser, history } = this.props;
+    removeUser(id);
+    // display warning
+    history.push('/');
   }
 
   render() {
@@ -37,7 +49,7 @@ class User extends Component {
 
     if (user) {
       return (
-        <GenericUser user={user} />
+        <GenericUser handleDelete={this.handleDelete} user={user} />
       );
     }
 
@@ -54,7 +66,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ getUser }, dispatch);
+  return bindActionCreators({ getUser, removeUser }, dispatch);
 };
 
 export default connect(

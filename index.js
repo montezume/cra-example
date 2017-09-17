@@ -25,5 +25,5 @@ server.get('*', (req, res) => {
 // server.use('/api', router);
 
 server.listen(port, function () {
-  console.log('\x1b[36mjson-server is running!');
+  console.log('\x1b[36mjson-server is running on port: ' + port);
 });

@@ -7,6 +7,7 @@ import Typography from 'material-ui/Typography';
 
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
+import Button from 'material-ui/Button';
 
 const styles = {
   card: {
@@ -23,21 +24,10 @@ const Img = styled.img`
 `;
 
 class User extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      dialogOpen: false
-    };
-    // this.toggleDialog = this.toggleDialog.bind(this);
-    // this.cancelDelete = this.cancelDelete.bind(this);
-    // this.confirmDelete = this.confirmDelete.bind(this);
-  }
-
+  
   render() {
 
-  const { user, classes } = this.props;
+  const { user, dialogOpen, classes } = this.props;
 
   return (
     <div>
@@ -53,8 +43,6 @@ class User extends Component {
           {user.phone}
         </ListItem>
         <Divider />
-
-
       </List>
     </div>
     );

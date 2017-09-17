@@ -48,7 +48,7 @@ export default function users(state = {
     case types.FETCH_USERS_SUCCESS:
       return {
         ...state,
-        data: action.payload.sort(sortAlphabetically),
+        data: action.payload && action.payload.sort(sortAlphabetically),
         error: false,
         isFetching: false
       };

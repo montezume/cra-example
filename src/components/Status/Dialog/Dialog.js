@@ -7,12 +7,12 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 
-export default class Dialog extends Component {
+export default class DialogComponent extends Component {
   render() {
-    const { open, cancel, confirm } = this.props;
+    const { open, cancel, confirm, userId } = this.props;
     return (
       <div>
-        <Dialog open={open} onRequestClose={cancel}>
+        <Dialog open={open} onRequestClose={cancel} >
           <DialogTitle>{"Delete this user?"}</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -23,7 +23,7 @@ export default class Dialog extends Component {
             <Button onClick={cancel} color="primary">
               Cancel
             </Button>
-            <Button onClick={confirm} color="primary">
+            <Button onClick={() => { confirm(userId) } } color="primary">
               Confirm
             </Button>
           </DialogActions>

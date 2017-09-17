@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import { getUser, removeUser } from '../../actions/user';
 
-import { ErrorComponent, Loading } from '../../components/Status';
+import { Dialog, ErrorComponent, Loading } from '../../components/Status';
 import { User as GenericUser, UserShell } from '../../components/Generic/User';
 
 class User extends Component {
@@ -14,7 +14,12 @@ class User extends Component {
     this.state = {
       dialogOpen: false
     };
+
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleConfirm = this.handleConfirm.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleToggleDialog = this.handleToggleDialog.bind(this);
+
   }
 
   componentDidMount() {
@@ -23,6 +28,20 @@ class User extends Component {
     if (!user || parseInt(user.id, 10) !== parseInt(params.id, 10)) {
       getUser(params.id);
     }
+  }
+
+  handleToggleDialog() {
+    this.setState({
+      dialogOpen: !this.state.dialogOpen
+    });
+  }
+
+  handleCancel() {
+    this.handleToggleDialog();
+  }
+
+  handleConfirm(id) {
+    this.handleDelete(id);
   }
 
   handleDelete(id) {
@@ -34,6 +53,7 @@ class User extends Component {
 
   render() {
     const { error, isFetching, user } = this.props;
+    const { dialogOpen } = this.state;
 
     if (isFetching) {
       return (
@@ -53,7 +73,8 @@ class User extends Component {
 
     if (user) {
       return (
-        <UserShell handleDelete={this.handleDelete} user={user}>
+        <UserShell handleDelete={this.handleToggleDialog} user={user}>
+          <Dialog open={dialogOpen} cancel={this.handleCancel} confirm={this.handleConfirm} userId={user.id} />
           <GenericUser user={user} />
         </UserShell>
       );

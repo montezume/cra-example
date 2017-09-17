@@ -119,10 +119,10 @@ class UserForm extends Component {
           margin="normal"
         />
 
-      <ImageGalleryPicker
-        selectedImage={user.picture}
-        onSelect={this.handleImageChange}
-      />
+        <ImageGalleryPicker
+          selectedImage={user.picture}
+          onSelect={this.handleImageChange}
+        />
 
         <StyledButtonContainer>
           <Button color="accent" raised type="submit" disabled={isSubmitting}>

@@ -4,6 +4,8 @@ import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile, GridListTileBar } from 'material-ui/GridList';
 import Icon from 'material-ui/Icon';
 
+import { moveToFront } from '../../utils/arrayUtils';
+
 const StyledIcon = styled(Icon)`
   font-size: 2em;
   color: white;
@@ -17,20 +19,7 @@ const StyledLabel = styled.label`
   display: block;
 `;
 
-// import StarBorderIcon from 'material-ui-icons/StarBorder';
-
-const tileData = [
-   {
-     image: '/images/kanye.jpg',
-     title: 'Image',
-     author: 'author',
-   },
-   {
-     image: '/images/taylor.jpg',
-     title: 'Image',
-     author: 'author',
-   },
-];
+const tileData = ['/images/anon.jpg', '/images/anon.png', '/images/kanye.jpg', '/images/taylor.jpg'];
 
 const styles = theme => ({
   root: {
@@ -63,6 +52,9 @@ class ImageGalleryPicker extends Component {
     }
 
     this.selectImage = this.selectImage.bind(this);
+
+    // reorder array so selectedImage is first, but not in render.
+    this.tiles = moveToFront(tileData, selectedImage);
   }
 
   selectImage(image) {
@@ -78,7 +70,6 @@ class ImageGalleryPicker extends Component {
 
   render() {
     const { classes } = this.props;
-
     const { selectedImage } = this.state;
 
     return (
@@ -88,16 +79,16 @@ class ImageGalleryPicker extends Component {
       </StyledLabel>
       <div className={classes.root}>
         <GridList className={classes.gridList} cols={1.5}>
-          {tileData.map(tile => (
-            <GridListTile key={tile.image} onClick={() => this.selectImage(tile.image)}>
-              <img src={tile.image} alt={tile.title} />
+          {this.tiles.map(tile => (
+            <GridListTile key={tile} onClick={() => this.selectImage(tile)}>
+              <img src={tile} alt={tile} />
               <GridListTileBar
-                title={tile.title}
+                title=""
                 classes={{
                   root: classes.titleBar
                 }}
                 actionIcon={
-                  tile.image === selectedImage ? (
+                  tile === selectedImage ? (
                     <StyledIcon selected>star</StyledIcon>
                   ) : (
                     <StyledIcon selected>star_outline</StyledIcon>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import TextField from 'material-ui/TextField';
 import Input from 'material-ui/Input';
 
 class NameFilter extends Component {

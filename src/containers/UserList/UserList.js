@@ -2,19 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import Icon from 'material-ui/Icon';
-
-
 import { clearFilter, updateFilter } from '../../actions/filter';
 import { getUsers } from '../../actions/users';
 
-import { NameFilter } from '../../components/Filter';
 import { ErrorComponent, Loading } from '../../components/Status';
-import { default as GenericUserList } from '../../components/Generic/UserList';
+import { UserList as GenericUserList, UserListShell } from '../../components/Generic/UserList';
 
 class UserList extends Component {
 
@@ -63,7 +55,9 @@ class UserList extends Component {
 
     if (isFetching) {
       return (
-        <Loading message="Loading users" />
+        <UserListShell>
+          <Loading message="Loading users" />
+        </UserListShell>
       )
     }
 
@@ -75,31 +69,13 @@ class UserList extends Component {
 
     if (users) {
       return (
-        <div>
-          <AppBar position="static">
-            <Toolbar>
-              <Typography style={{ flex: '1' }} type="title" color="inherit">
-                { !searchOpen ? (
-                  <span>
-                    Contacts
-                  </span>
-                ) : (
-                  <NameFilter onFilter={this.handleNameFilter} />
-                  )
-                }
-              </Typography>
-              <IconButton onClick={this.toggleSearch}>
-                { !searchOpen ? (
-                  <Icon color="contrast">search</Icon>
-                  ) : (
-                  <Icon color="contrast">close</Icon>
-                  )
-                }
-              </IconButton>
-            </Toolbar>
-          </AppBar>
+        <UserListShell
+          searchOpen={searchOpen}
+          toggleSearch={this.toggleSearch}
+          handleNameFilter={this.handleNameFilter}
+          >
           <GenericUserList users={users} />
-        </div>
+        </UserListShell>
       );
     }
 

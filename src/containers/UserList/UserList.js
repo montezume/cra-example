@@ -56,14 +56,16 @@ class UserList extends Component {
     if (isFetching) {
       return (
         <UserListShell>
-          <Loading message="Loading users" />
+          <Loading />
         </UserListShell>
       )
     }
 
     if (error) {
       return (
-        <ErrorComponent message="Error fetching users" />
+        <UserListShell>
+          <ErrorComponent message="Error fetching users" />
+        </UserListShell>
       )
     }
 

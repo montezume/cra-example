@@ -48,13 +48,13 @@ class ImageGalleryPicker extends Component {
     super(props);
     const { selectedImage } = this.props;
     this.state = {
-      selectedImage: selectedImage || tileData[0].image
+      selectedImage: selectedImage || tileData[0]
     }
 
     this.selectImage = this.selectImage.bind(this);
 
     // reorder array so selectedImage is first, but not in render.
-    this.tiles = moveToFront(tileData, selectedImage);
+    this.tiles = selectedImage ? moveToFront(tileData, selectedImage) : tileData;
   }
 
   selectImage(image) {

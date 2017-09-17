@@ -32,7 +32,7 @@ class User extends Component {
         <Divider />
           <ListItem>
             <ListItemIcon>
-              <Icon>address</Icon>
+              <Icon>home</Icon>
             </ListItemIcon>
             <ListItemText primary={user.address} secondary="address" />
           </ListItem>

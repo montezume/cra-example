@@ -130,6 +130,7 @@ class UserForm extends Component {
           fullWidth
           value={user.job_title}
           onChange={this.handleInputChange}
+          required
           margin="normal"
         />
 

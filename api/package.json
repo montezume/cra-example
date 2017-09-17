@@ -1,0 +1,15 @@
+{
+  "name": "users-list-api",
+  "version": "1.0.0",
+  "description": "Users List Mock Api",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Malcolm Laing",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.12.0"
+  }
+}

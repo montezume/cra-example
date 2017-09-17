@@ -22,7 +22,7 @@ export const createUser = user => {
     // could add a Promise polyfill for IE
     return new Promise((resolve, reject) => {
       dispatch(addUser());
-      axios.post('/users', user)
+      axios.post('http://localhost:3001/users', user)
         .then(success => {
           dispatch(addUserSuccess(success.data));
           resolve(success.data);
@@ -40,7 +40,7 @@ export const removeUser = id => {
     // could add a Promise polyfill for IE
     return new Promise((resolve, reject) => {
       dispatch(deleteUser());
-      axios.delete(`/users/${id}`)
+      axios.delete(`http://localhost:3001/users/${id}`)
         .then(success => {
           dispatch(deleteUserSuccess({ id }));
           resolve(success.data);
@@ -57,7 +57,7 @@ export const removeUser = id => {
 export const getUser = id => {
   return function(dispatch) {
     dispatch(fetchUser());
-    axios.get(`/users/${id}`)
+    axios.get(`http://localhost:3001/users/${id}`)
       .then(success => {
         dispatch(fetchUserSuccess(success.data));
       }, error => {
@@ -72,7 +72,7 @@ export const modifyUser = user => {
     // could add a Promise polyfill for IE
     return new Promise((resolve, reject) => {
       dispatch(editUser());
-      axios.put(`/users/${user.id}`, user)
+      axios.put(`http://localhost:3001/users/${user.id}`, user)
         .then(success => {
           dispatch(editUserSuccess(success.data));
           resolve(success.data);

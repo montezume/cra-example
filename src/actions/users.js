@@ -9,7 +9,7 @@ export const getUsers = () => {
   return function(dispatch) {
     return new Promise((resolve, reject) => {
       dispatch(fetchUsers());
-      get('http://localhost:3001/users')
+      get('https://localhost:3001/users')
         .then(success => {
           dispatch(fetchUsersSuccess(success.data));
           resolve(success.data);

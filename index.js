@@ -1,17 +1,28 @@
 const jsonServer = require('json-server');
-const server = jsonServer.create();
+const express = require('express');
+const path = require('path');
+const server = express();
 const router = jsonServer.router('./db.json');
 const middlewares = jsonServer.defaults();
 const fs = require('fs');
-const port = 3001;
+const port = process.env.port || 3001;
 
-server.use(function(req, res, next) {
-  // add 1 second delay
-  setTimeout(next, 1000);
+// server.use(middlewares);
+// server.use(router);
+
+server.use('/api', router);
+
+// if (!process.env.NODE_ENV === 'production') {
+  server.use(express.static(path.resolve(__dirname, 'build')));
+// }
+
+
+// Always return the main index.html, so react-router render the route in the client
+server.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
 });
 
-server.use(middlewares);
-server.use(router);
+// server.use('/api', router);
 
 server.listen(port, function () {
   console.log('\x1b[36mjson-server is running!');

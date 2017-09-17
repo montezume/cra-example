@@ -56,7 +56,7 @@ class AddUser extends Component {
     }
 
     return (
-      <AddUserShell title="Add user">
+      <AddUserShell title="Add user" previousState="/">
         <UserForm
           error={error}
           isSubmitting={isSubmitting}

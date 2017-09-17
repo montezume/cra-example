@@ -31,8 +31,6 @@ class EditUser extends Component {
       error: false
     });
 
-    console.log('user', user);
-
     modifyUser(user).then(success => {
       // success! go home
       this.setState({
@@ -73,7 +71,7 @@ class EditUser extends Component {
 
     if (user) {
       return (
-        <AddUserShell title={user.name}>
+        <AddUserShell title={user.name} previousState={`/users/${user.id}`}>
           <UserForm
             error={submitError}
             user={user}

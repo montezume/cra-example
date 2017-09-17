@@ -30,6 +30,13 @@ class User extends Component {
           <ListItemText primary={user.email} secondary="email" />
         </ListItem>
         <Divider />
+          <ListItem>
+            <ListItemIcon>
+              <Icon>address</Icon>
+            </ListItemIcon>
+            <ListItemText primary={user.address} secondary="address" />
+          </ListItem>
+          <Divider />
         <ListItem>
           <ListItemIcon>
             <Icon>phone</Icon>

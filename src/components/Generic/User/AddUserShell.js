@@ -12,11 +12,11 @@ const StyledAddContainer = styled.div`
   padding: 16px;
 `;
 
-const AddUserShell = ({ title, history, children }) => (
+const AddUserShell = ({ title, history, previousState, children }) => (
   <div>
     <AppBar position="static">
       <Toolbar>
-        <IconButton onClick={() => history.push('/') }>
+        <IconButton onClick={() => history.push(previousState) }>
           {
             <Icon color="contrast">arrow_back</Icon>
           }

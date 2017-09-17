@@ -18,6 +18,7 @@ class UserForm extends Component {
     this.state = {
       user: {
         name: (user && user.name) || '',
+        address: (user && user.address) || '',
         job_title: (user && user.job_title) || '',
         phone: (user && user.phone) || '',
         email: (user && user.email) || '',
@@ -90,6 +91,19 @@ class UserForm extends Component {
           fullWidth
           value={user.email}
           type="email"
+          onChange={this.handleInputChange}
+          required
+          margin="normal"
+        />
+
+        <TextField
+          id="address"
+          label="Address"
+          disabled={isSubmitting}
+          name="address"
+          fullWidth
+          value={user.address}
+          type="address"
           onChange={this.handleInputChange}
           required
           margin="normal"

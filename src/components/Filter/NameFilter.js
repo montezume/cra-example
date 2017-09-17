@@ -27,6 +27,7 @@ class NameFilter extends Component {
         <form noValidate autoComplete="off">
           <Input
             id="name"
+            autoFocus
             label="Name"
             value={name}
             className="test"

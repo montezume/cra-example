@@ -2,21 +2,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
-
-const styles = {
-  card: {
-    height: 500
-  },
-  media: {
-    height: 200,
-  },
-};
+import Icon from 'material-ui/Icon';
 
 const Img = styled.img`
   width: 100%;
@@ -24,10 +12,10 @@ const Img = styled.img`
 `;
 
 class User extends Component {
-  
+
   render() {
 
-  const { user, dialogOpen, classes } = this.props;
+  const { user } = this.props;
 
   return (
     <div>
@@ -36,17 +24,29 @@ class User extends Component {
       }
       <List>
         <ListItem>
-          {user.email}
+          <ListItemIcon>
+            <Icon>email</Icon>
+          </ListItemIcon>
+          <ListItemText primary={user.email} secondary="email" />
         </ListItem>
         <Divider />
         <ListItem>
-          {user.phone}
+          <ListItemIcon>
+            <Icon>phone</Icon>
+          </ListItemIcon>
+          <ListItemText primary={user.phone} secondary="phone" />
         </ListItem>
         <Divider />
+        <ListItem>
+          <ListItemIcon>
+            <Icon>work</Icon>
+          </ListItemIcon>
+          <ListItemText primary={user.job_title} secondary="job title" />
+        </ListItem>
       </List>
     </div>
     );
   }
 }
 
-export default withStyles(styles)(withRouter(User));
+export default withRouter(User);

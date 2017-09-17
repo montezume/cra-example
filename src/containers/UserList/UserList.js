@@ -23,7 +23,7 @@ class UserList extends Component {
 
   componentDidMount() {
     const { users, getUsers } = this.props;
-
+    // basic caching -_-
     if (!users) {
       getUsers();
     }
@@ -55,7 +55,7 @@ class UserList extends Component {
 
     if (isFetching) {
       return (
-        <UserListShell>
+        <UserListShell disableSearch>
           <Loading />
         </UserListShell>
       )
@@ -63,7 +63,7 @@ class UserList extends Component {
 
     if (error) {
       return (
-        <UserListShell>
+        <UserListShell disableSearch>
           <ErrorComponent message="Error fetching users" />
         </UserListShell>
       )

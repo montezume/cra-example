@@ -3,11 +3,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { withStyles } from 'material-ui/styles';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import Icon from 'material-ui/Icon';
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
 
 const styles = {
@@ -34,35 +30,10 @@ class User extends Component {
 
   render() {
 
-  const { user, handleDelete, history, classes } = this.props;
+  const { user, classes } = this.props;
 
   return (
     <div>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton onClick={() => history.push('/') }>
-            {
-              <Icon color="contrast">arrow_back</Icon>
-            }
-          </IconButton>
-          <Typography style={{ flex: '1' }} type="title" color="inherit">
-            { user.name }
-          </Typography>
-
-          <IconButton onClick={() => history.push(`/edit/${user.id}`) }>
-            {
-              <Icon color="contrast">edit</Icon>
-            }
-          </IconButton>
-          <IconButton onClick={() => handleDelete(user.id) }>
-            {
-              <Icon color="contrast">delete</Icon>
-            }
-          </IconButton>
-
-
-        </Toolbar>
-      </AppBar>
       <Card className={classes.card}>
         { user.picture &&
           <CardMedia

@@ -4,7 +4,6 @@ import Icon from 'material-ui/Icon';
 import { withStyles } from 'material-ui/styles';
 
 const StyledError = styled.div`
-  margin: 8px;
   padding: 16px;
   text-align: center;
 `;

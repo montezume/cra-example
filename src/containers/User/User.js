@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { getUser, removeUser } from '../../actions/user';
 
 import { ErrorComponent, Loading } from '../../components/Status';
-import { User as GenericUser } from '../../components/Generic/User';
+import { User as GenericUser, UserShell } from '../../components/Generic/User';
 
 class User extends Component {
 
@@ -37,19 +37,25 @@ class User extends Component {
 
     if (isFetching) {
       return (
-        <Loading message="Loading users" />
+        <UserShell disableActions>
+          <Loading />
+        </UserShell>
       )
     }
 
     if (error) {
       return (
-        <ErrorComponent message="Error fetching user" />
+        <UserShell disableActions>
+          <ErrorComponent message="Error fetching user" />
+        </UserShell>
       )
     }
 
     if (user) {
       return (
-        <GenericUser handleDelete={this.handleDelete} user={user} />
+        <UserShell handleDelete={this.handleDelete} user={user}>
+          <GenericUser user={user} />
+        </UserShell>
       );
     }
 

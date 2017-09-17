@@ -1,5 +1,5 @@
 import React from 'react';
-
+import styled from 'styled-components';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -8,7 +8,11 @@ import Icon from 'material-ui/Icon';
 
 import { NameFilter } from '../../Filter';
 
-const UserListShell = ({searchOpen, toggleSearch, handleNameFilter, children}) => (
+const StyledShell = styled.div`
+  margin: 8px;
+`;
+
+const UserListShell = ({searchOpen, toggleSearch, handleNameFilter, disableSearch, children}) => (
   <div>
     <AppBar position="static">
       <Toolbar>
@@ -22,7 +26,7 @@ const UserListShell = ({searchOpen, toggleSearch, handleNameFilter, children}) =
             )
           }
         </Typography>
-        <IconButton onClick={toggleSearch}>
+        <IconButton onClick={toggleSearch} disabled={disableSearch}>
           { !searchOpen ? (
             <Icon color="contrast">search</Icon>
             ) : (
@@ -32,7 +36,9 @@ const UserListShell = ({searchOpen, toggleSearch, handleNameFilter, children}) =
         </IconButton>
       </Toolbar>
     </AppBar>
-    { children }
+    <StyledShell>
+      { children }
+    </StyledShell>
   </div>
 );
 

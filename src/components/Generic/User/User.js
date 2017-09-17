@@ -12,8 +12,6 @@ import Card, { CardContent, CardMedia } from 'material-ui/Card';
 
 const styles = {
   card: {
-    // maxWidth: 345,
-    // ma
     height: 500
   },
   media: {

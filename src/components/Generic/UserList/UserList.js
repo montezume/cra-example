@@ -4,6 +4,7 @@ import List from 'material-ui/List';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
+import Grid from 'material-ui/Grid';
 
 import ListItem from './ListItem';
 
@@ -16,13 +17,13 @@ const styles = theme => ({
 
 
 const buttonDivStyle = {
-  position: 'fixed',
+  position: 'absolute',
   bottom: '30px',
   right: '30px'
 };
 
 const UserList = ({classes, users, handleDelete, history, handleFilter}) => (
-  <div>
+  <div className="full-height">
     <List className={classes.root}>
       { users && users.map((user) => {
         return (

@@ -13,7 +13,7 @@ const StyledShell = styled.div`
 `;
 
 const UserListShell = ({searchOpen, toggleSearch, handleNameFilter, disableSearch, children}) => (
-  <div>
+  <div className="full-height">
     <AppBar position="static">
       <Toolbar>
         <Typography style={{ flex: '1' }} type="title" color="inherit">

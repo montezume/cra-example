@@ -23,23 +23,21 @@ class NameFilter extends Component {
   render() {
     const { name } = this.state;
     return (
-      <div>
-        <form noValidate autoComplete="off">
-          <Input
-            id="name"
-            autoFocus
-            label="Name"
-            value={name}
-            className="test"
-            style={{color: 'white'}}
-            disableUnderline
-            fullWidth
-            onChange={this.handleChange}
-            margin="none"
-          />
+      <form noValidate autoComplete="off">
+        <Input
+          id="name"
+          autoFocus
+          label="Name"
+          value={name}
+          className="test"
+          style={{color: 'white'}}
+          disableUnderline
+          fullWidth
+          onChange={this.handleChange}
+          margin="none"
+        />
 
-        </form>
-      </div>
+      </form>
     )
   }
 }

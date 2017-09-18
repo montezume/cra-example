@@ -7,9 +7,14 @@ import EditUser from '../EditUser';
 import User from '../User';
 import UserList from '../UserList';
 
+const fullHeight = {
+  height: '100%',
+  position: 'relative'
+};
+
 const App = () => (
-  <Grid container className="App" justify="center">
-    <Grid item xs={12} md={8} lg={6}>
+  <Grid container className="App" justify="center" style={fullHeight}>
+    <Grid item xs={12} md={8} lg={6} style={fullHeight}>
       <Switch>
         <Route exact path="/" component={ UserList } />
         <Route exact path="/users/:id" component={ User } />
